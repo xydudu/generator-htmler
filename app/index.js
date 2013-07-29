@@ -42,6 +42,8 @@ HtmlerGenerator.prototype.askFor = function askFor() {
 
 HtmlerGenerator.prototype.app = function app() {
 
+  this.mkdir('configs');
+
   this.mkdir('dev');
   this.mkdir('dev/jade');
   this.mkdir('dev/less');
@@ -61,5 +63,7 @@ HtmlerGenerator.prototype.app = function app() {
 
 HtmlerGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('editorconfig', '.editorconfig');
+  this.copy('list-item.html', 'configs/list-item.html');
+  this.copy('list-list.html', 'configs/list-list.html');
   this.template('../jade/index.jade', 'dev/jade/index.jade');
 };

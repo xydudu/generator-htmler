@@ -15,7 +15,8 @@
     "grunt-contrib-imagemin": "",
     "matchdep": "~0.1.2",
     "grunt-contrib-watch": "~0.4.0",
-    "connect-livereload": "~0.2.0"
+    "connect-livereload": "~0.2.0",
+    "grunt-fileslist": ""
   },
   "engines": {
     "node": ">=0.8.0"

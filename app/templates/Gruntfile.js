@@ -48,7 +48,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                path: 'http://localhost:<%= connect.options.port %>'
+                path: 'http://localhost:<%= connect.options.port %>/start.html'
             }
         },
         less: {
@@ -74,10 +74,20 @@ module.exports = function (grunt) {
                     ext: '.html'
                 }]
             }
+        },
+        fileslist: {
+            htmls: {
+                dest: '<%=yeomanConfig.product%>/templates/start.html',
+                includes: ['**/*.html'],
+                base: '<%=yeomanConfig.product%>/templates/',
+                itemTemplate: grunt.file.read('configs/list-item.html'),
+                itemSeparator: '',
+                listTemplate: grunt.file.read('configs/list-list.html')
+            }
         }
     });
 
-    grunt.registerTask('server', ['less', 'jade', 'connect:livereload', 'open', 'watch']);
-    grunt.registerTask('build', ['less', 'jade']);
+    grunt.registerTask('server', ['less', 'jade', 'fileslist', 'connect:livereload', 'open', 'watch']);
+    grunt.registerTask('build', ['less', 'jade', 'fileslist']);
 
 };

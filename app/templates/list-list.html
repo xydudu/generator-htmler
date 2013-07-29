@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Generator Htmler Files List</title>
+    <style type="text/css" media="screen">
+    h1 {
+        text-align: center;
+        color: red;
+      }
+      ul {
+        padding-left: 2em;
+        margin: 0;
+        line-height: 1.5em;
+      }
+      li {
+        border-bottom: 1px solid #222;
+        padding: 10px 5px;
+      }
+      li:nth-child(2n) {
+        background-color: #efefef;  
+      }
+      lable {
+        display: inline-block;
+        width: 500px;
+      }
+
+    </style>
+</head>
+<body>
+    <h1>HTML files list</h1>
+    <ul></ul>
+    <script>
+      var files = [];
+      <%= items %>
+      var ul = document.getElementsByTagName('ul')[0];
+      while(files.length) {
+        
+        var f = files.shift();
+        var li = document.createElement('li');
+        var prefix = f.dir.replace('.', ' / ');
+        
+        li.innerHTML = '<lable>- '+ prefix +'</lable><a href="'+ f.path +'">'+ f.filename +'</a>';
+        ul.appendChild(li);
+      
+      }
+    </script>
+</body>
+</html>
