@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                     middleware: function (connect) {
                         return [
                             lrSnippet,
-                            mountFolder(connect, yeomanConfig.product +'/templates')
+                            mountFolder(connect, yeomanConfig.product)
                         ];
                     }
                 }
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
         },
         fileslist: {
             htmls: {
-                dest: '<%=yeomanConfig.product%>/templates/start.html',
+                dest: '<%=yeomanConfig.product%>/start.html',
                 includes: ['**/*.html'],
                 base: '<%=yeomanConfig.product%>/templates/',
                 itemTemplate: grunt.file.read('configs/list-item.html'),

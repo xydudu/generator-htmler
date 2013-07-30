@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A generator for Yeoman",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator", "html"
   ],
   "homepage": "https://github.com/xydudu/generator-htmler",
   "bugs": "https://github.com/xydudu/generator-htmler/issues",

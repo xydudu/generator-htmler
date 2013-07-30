@@ -18,17 +18,6 @@ util.inherits(HtmlerGenerator, yeoman.generators.Base);
 
 HtmlerGenerator.prototype.askFor = function askFor() {
   var cb = this.async();
-
-  // have Yeoman greet the user.
-  //console.log(this.yeoman);
-
-  //var prompts = [{
-  //  type: 'confirm',
-  //  name: 'someOption',
-  //  message: 'Would you like to enable this option?',
-  //  default: true
-  //}];
-
   var prompts = [{
     name: 'projectName',
     message: 'Set a name for your project: ',
@@ -66,4 +55,5 @@ HtmlerGenerator.prototype.projectfiles = function projectfiles() {
   this.copy('list-item.html', 'configs/list-item.html');
   this.copy('list-list.html', 'configs/list-list.html');
   this.template('../jade/index.jade', 'dev/jade/index.jade');
+  this.write('dev/less/main.less', 'h1 {color: red}');
 };
