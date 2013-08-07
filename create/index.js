@@ -48,4 +48,7 @@ HtmlerGenerator.prototype.app = function app() {
 HtmlerGenerator.prototype.projectfiles = function projectfiles() {
     this.template('../_index.jade', 
             'projects/'+ this.projectName +'/src/jade/index.jade');
+
+    this.write('projects/'+ this.projectName +'/src/less/main.less', 
+            'h1 {color: red}');
 };

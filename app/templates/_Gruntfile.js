@@ -16,7 +16,40 @@ module.exports = function (grunt) {
     };
 
     grunt.initConfig({
-        yeomanConfig: yeomanConfig,
+        jade: {
+            options: {
+                pretty: true
+            },
+            html: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dev_path %>/jade/',
+                    src: ['**/*.jade', '!_**/*.jade'],
+                    dest: '<%= build_path %>/html/',
+                    ext: '.html'
+                }]
+            }
+        },
+        fileslist: {
+            htmls: {
+                dest: '<%= build_path %>/start.html',
+                includes: ['**/*.html'],
+                base: '<%= build_path %>/html/',
+                itemTemplate: grunt.file.read('.list-item.html'),
+                itemSeparator: '',
+                listTemplate: grunt.file.read('.list-list.html')
+            }
+        },
+        less: {
+            options: {
+                paths: ['<%= dev_path %>/less']
+            },
+            build: {
+                files: {
+                    '<%= build_path %>/css/style.css': '<%= dev_path %>/less/main.less'
+                }
+            } 
+        },
         watch: {
             options: {
                 nospawn: true,
@@ -24,8 +57,8 @@ module.exports = function (grunt) {
             },
             livereload: {
                 files: [
-                '<%= yeomanConfig.dev %>/less/{,*/}*.less',
-                '<%= yeomanConfig.dev %>/jade/{,*/}*.jade'
+                    '<%= dev_path %>/less/{,*/}*.less',
+                    '<%= dev_path %>/jade/{,*/}*.jade'
                 ],
             tasks: ['build']
             }
@@ -37,10 +70,10 @@ module.exports = function (grunt) {
             },
             livereload: {
                 options: {
-                    middleware: function (connect) {
+                    middleware: function(connect) {
                         return [
                             lrSnippet,
-                            mountFolder(connect, yeomanConfig.product)
+                            mountFolder(connect, grunt.config.get('build_path'))
                         ];
                     }
                 }
@@ -50,44 +83,37 @@ module.exports = function (grunt) {
             server: {
                 path: 'http://localhost:<%= connect.options.port %>/start.html'
             }
-        },
-        less: {
-            options: {
-                paths: ['<%= yeomanConfig.dev %>/less']
-            },
-            build: {
-                files: {
-                    '<%= yeomanConfig.product %>/css/style.css': '<%= yeomanConfig.dev %>/less/{,*/}*.less'
-                }
-            } 
-        },
-        jade: {
-            options: {
-                pretty: true
-            },
-            html: {
-                files: [{
-                    expand: true,
-                    cwd: '<%=yeomanConfig.dev%>/jade/',
-                    src: ['**/*.jade', '!_**/*.jade'],
-                    dest: '<%=yeomanConfig.product%>/templates/',
-                    ext: '.html'
-                }]
-            }
-        },
-        fileslist: {
-            htmls: {
-                dest: '<%=yeomanConfig.product%>/start.html',
-                includes: ['**/*.html'],
-                base: '<%=yeomanConfig.product%>/templates/',
-                itemTemplate: grunt.file.read('configs/list-item.html'),
-                itemSeparator: '',
-                listTemplate: grunt.file.read('configs/list-list.html')
-            }
         }
     });
 
-    grunt.registerTask('server', ['less', 'jade', 'fileslist', 'connect:livereload', 'open', 'watch']);
-    grunt.registerTask('build', ['less', 'jade', 'fileslist']);
+    //grunt.registerTask('server', ['less', 'jade', 'fileslist', 'connect:livereload', 'open', 'watch']);
+    //grunt.registerTask('build', ['less', 'jade', 'fileslist']);
+    
+    grunt.registerTask('build', function(_project) {
+        if (!_project) {
+            grunt.log.writeln('Error: Which project do you want to build?'.red)
+            grunt.log.writeln('eg: grunt build:projectname'.blue)
+            return;
+        }
+
+        grunt.config.set('build_path', 'projects/'+ _project +'/build/');
+        grunt.config.set('dev_path', 'projects/'+ _project +'/src/');
+
+        grunt.task.run(['jade', 'less', 'fileslist']);
+    });
+
+    grunt.registerTask('server', function(_project) {
+        if (!_project) {
+            grunt.log.writeln('Error: Which project do you want to server?'.red)
+            grunt.log.writeln('eg: grunt server:projectname'.blue)
+            return;
+        }
+        //grunt.config.set('build_path', 'projects/<%= _project %>/build/');
+        //grunt.config.set('dev_path', 'projects/<%= _project %>/src/');
+        grunt.task.run('build:'+ _project);
+        grunt.task.run(['jade', 'less', 'fileslist', 'connect:livereload', 'open', 'watch']);
+
+    });
+
 
 };

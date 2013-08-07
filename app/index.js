@@ -31,5 +31,5 @@ HtmlerGenerator.prototype.projectfiles = function projectfiles() {
     this.copy('_editorconfig', '.editorconfig');
     this.copy('_list-item.html', '.list-item.html');
     this.copy('_list-list.html', '.list-list.html');
-    this.write('dev/less/main.less', 'h1 {color: red}');
+    //this.write('/less/main.less', 'h1 {color: red}');
 };
