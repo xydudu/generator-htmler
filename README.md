@@ -7,7 +7,14 @@ A generator for Yeoman.
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
     `npm install -g yo`
 - Install the generator: `npm install -g generator-htmler`
-- Run: `yo htmler`
+
+## create project
+- yo htmler
+- yo htmler:create project
+
+## grunt
+- grunt server:project
+- grunt build:project
 
 ## License
 [MIT License](http://en.wikipedia.org/wiki/MIT_License)
